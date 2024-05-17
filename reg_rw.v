@@ -16,7 +16,6 @@ module reg_mod (input             write_en,
     always@ (*)
         if (rst == 1)
             begin
-                #1
                 for(i = 0;i<=7;i=i+1)
                     begin
                         reg_file[i] = 8'b00000000;
@@ -27,12 +26,12 @@ module reg_mod (input             write_en,
   begin
       if (write_en == 1'b1 && rst == 1'b0)
           begin
-              #1 reg_file[write_add] = write_data;
+              reg_file[write_add] = write_data;
           end
   end
 
-    assign #1 read_data1 = reg_file[read_add1];
-    assign #1 read_data2 = reg_file[read_add2];
+    assign read_data1 = reg_file[read_add1];
+    assign read_data2 = reg_file[read_add2];
           
   end
 
