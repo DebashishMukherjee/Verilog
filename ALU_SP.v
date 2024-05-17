@@ -19,14 +19,14 @@ always @(in_1, in_b, op)
     begin
         case(op)
             //Forward
-            3'b000:    #1    res = in_a;
+            3'b000:    res = in_a;
             //ADD
-            3'b001:    #1    res = in_a + in_b;
+            3'b001:    res = in_a + in_b;
             //AND
-            3'b010:    #1    res = in_a & in_b;
+            3'b010:    res = in_a & in_b;
             //OR
-            3'b011:    #1    res = in_a | in_b;
-            default:   #1    res = 8'b00000000;
+            3'b011:    res = in_a | in_b;
+            default:    res = 8'b00000000;
         endcase
     end
 endmodule
