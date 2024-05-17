@@ -20,13 +20,18 @@ always @(in_1, in_b, op)
         case(op)
             //Forward
             3'b000:    res = in_a;
+            //forward immediate
+            3'b001:    res = in_a;
             //ADD
-            3'b001:    res = in_a + in_b;
+            3'b010:    res = in_a + in_b;
             //AND
-            3'b010:    res = in_a & in_b;
+            3'b011:    res = in_a & in_b;
+            //sub
+            3'b100:    res = in_a + (~in_b + 1);
             //OR
-            3'b011:    res = in_a | in_b;
-            default:    res = 8'b00000000;
+            3'b101:    res = in_a | in_b;
+            
+            
         endcase
     end
 endmodule
