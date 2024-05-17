@@ -5,7 +5,7 @@
 //reserved------op--1xx---NA-------------NA
 
 
-module ALU_sp  (input    [7:0]    op,
+module ALU_SP  (input    [7:0]    op,
                          //[7:0]    des,
                          [7:0]    in_a,
                          [7:0]    in_b,
