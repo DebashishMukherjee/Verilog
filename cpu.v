@@ -1,10 +1,11 @@
-module cpu(input instruction,
+module cpu(input [31:0] instruction,
                  clk,
                  rst,
            output [31:0] pc);
 
     reg [31:0] pc;
   wire [31:0] pc_out;
+  reg [31:0] instruction;
 
   reg [7:0] to_write;
   reg write_en;
