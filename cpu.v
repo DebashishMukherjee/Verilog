@@ -6,15 +6,22 @@ module cpu(input instruction,
     reg [31:0] pc;
   wire [31:0] pc_out;
 
-  reg [7:0] to_wtite;
+  reg [7:0] to_write;
   reg write_en;
   wire [7:0] to_read1;
   wire [7:0] to_read2;
+  reg [2:0] write_add;
+  reg [2:0] read_add1;
+  reg [2:0] read_add2;
+  reg [7:0] mvimval;
+  
 
   reg [7:0] op_code;
   reg [2:0] alu_op;
   reg immediate_flag;
   reg add_flag;
+
+  wire [7:0] to_read2_comp;//2's compliment version of the read data 2
   
 
 //resetting PC at reset
@@ -91,8 +98,30 @@ module cpu(input instruction,
 
 
   //reg_file
-  
+  // (input             write_en,                  WRITE
+  //                        [2:0]    read_add1,    OUT1ADDRESS
+  //                        [2:0]    read_add2,    OUT2ADDRESS
+  //                        [2:0]    write_add,    INADDRESS
+  //                        [7:0]    write_data,   IN
+  //                                 clk,
+  //                                 rst,
+  //               output   [7:0]    read_data1,    OUT1
+  //                        [7:0]    read_data2);    OUT2
+  reg_mod rm(write_en, read_add1, read_add2, write_add, to_write, clk, rst, to_read1, to_read2);
+  always@(instruction)
+    begin
+      write_add = instruction[18:16];
+      read_add1 = instruction[10:8];
+      read_add2 = instruction[2:0];
+      mvimval = instruction[7:0];
+    end
 
+
+  //2's complimented version of the read2 data
+  to_read2_comp = ~to_read2 + 8'b00000001;
+
+
+  
   
 
 endmodule
